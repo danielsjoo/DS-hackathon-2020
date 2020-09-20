@@ -1,7 +1,7 @@
 import csv
 
-us_gov = open("data/us_gov.csv")
-output = open("data/us_gov_averaged.csv", 'w')
+us_gov = open("data/uk_gov.csv")
+output = open("data/uk_gov_averaged.csv", 'w')
 
 r = csv.reader(us_gov)
 w = csv.writer(output)
@@ -19,7 +19,7 @@ for row in r:
         deaths += float(row[2])
         stringency_index += float(row[3])
     else:
-        w.writerow([date,confirmed_cases ,deaths , round(stringency_index/i,2)])
+        w.writerow([date,confirmed_cases/2 ,deaths/2 , round(stringency_index/i,2)])
         date = row[0]
         confirmed_cases, deaths, stringency_index = float(row[1]),float(row[2]),float(row[3])
         i=1
