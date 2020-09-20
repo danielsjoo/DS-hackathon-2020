@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 all_data = pd.read_csv('data/all_data.csv')
 print(all_data.head())
 
+#Slice US 
+us_data = all_data[all_data.country_region_code == 'US']
+
 # Visualize(?)
-plt.scatter(all_data['date'], all_data['grocery_and_pharmacy_percent_change_from_baseline'])
+plt.scatter(us_data['date'], us_data['grocery_and_pharmacy_percent_change_from_baseline'])
 plt.show()
