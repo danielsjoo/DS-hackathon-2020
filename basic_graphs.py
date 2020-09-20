@@ -2,9 +2,11 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
+import datetime as dt
 
 # Import CSV data from file
 us_stringency = pd.read_csv('data/us_gov_averaged.csv')
+us_stringency.date = pd.to_datetime(us_stringency.date)
 us_mobility = pd.read_csv('data/us_mobility.csv')
 
 jp_stringency = pd.read_csv('data/jp_gov_averaged.csv')
@@ -13,16 +15,24 @@ jp_mobility = pd.read_csv('data/jp_mobility.csv')
 uk_stringency = pd.read_csv('data/uk_gov_averaged.csv')
 uk_mobility = pd.read_csv('data/uk_mobility.csv')
 
-# TODO: Stringency/mobiity, stringency/time, mobility/time graphs
+# TODO: deaths/time, cases/time, mobility/time graphs
 
-plt.scatter(us_stringency['stringency_index'], us_mobility['grocery_and_pharmacy'])
+def make_time_graph(dataset, metric, ylabel, title):
+    model = LinearRegression()
+    x = dataset['date'].map(dt.datetime.toordinal).to_numpy().reshape(-1, 1)
+    model.fit(x, dataset[metric])
+    y = model.predict(x)
 
-model = LinearRegression()
-x = us_stringency['stringency_index']
-model.fit(x, us_mobility['grocery_and_pharmacy'])
-y = model.predict(x)
+    plt.figure(figsize=(8, 6))
+    plt.scatter(dataset['date'], dataset[metric], s=8)
+    plt.plot(x, y, color='red')
+    plt.xlabel('Date (YYYY-MM)')
+    plt.ylabel(ylabel)
+    plt.title(title)
+    plt.show()
 
-
+make_time_graph(us_stringency, 'deaths', 'Deaths', 'US Deaths vs. Time')
+make_time_graph(us_stringency, 'confirmed_cases', 'Confirmed Cases', 'US Confirmed Cases vs. Time')
 
 '''
 # Import CSV data from file
