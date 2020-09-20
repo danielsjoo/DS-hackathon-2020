@@ -17,15 +17,17 @@ uk_mobility = pd.read_csv('data/uk_mobility.csv')
 
 # TODO: Stringency/mobility, stringency/time, mobility/time graphs
 
-plt.figure(figsize=(8, 6))
-plt.scatter(us_stringency['date'], us_stringency['deaths'])
-
 model = LinearRegression()
 x = us_stringency['date'].map(dt.datetime.toordinal).to_numpy().reshape(-1, 1)
 model.fit(x, us_stringency['deaths'])
 y = model.predict(x)
 
-plt.plot(x, y)
+plt.figure(figsize=(8, 6))
+plt.scatter(us_stringency['date'], us_stringency['deaths'], s=8)
+plt.plot(x, y, color='red')
+plt.xlabel('Date (YYYY-MM)')
+plt.ylabel('Deaths (People)')
+plt.title('US Deaths Over Time')
 plt.show()
 
 
