@@ -8,6 +8,11 @@ us_data = df[df.country_name == 'United States']
 uk_data = df[df.country_name == 'United Kingdom']
 jp_data = df[df.country_name == 'Japan']
 
+#to csv
+us_data.to_csv('data/us_gov.csv')
+uk_data.to_csv('data/uk_gov.csv')
+jp_data.to_csv('data/jp_gov.csv')
+
 #start date check
 us_min = us_data['date'].min()
 uk_min = uk_data['date'].min()
