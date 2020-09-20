@@ -7,15 +7,18 @@ import datetime as dt
 # Import CSV data from file
 us_stringency = pd.read_csv('data/us_gov_averaged.csv')
 us_stringency.date = pd.to_datetime(us_stringency.date)
-us_mobility = pd.read_csv('data/us_mobility.csv')
+us_mobility = pd.read_csv('data/us_mobility_average.csv')
+us_mobility.date = pd.to_datetime(us_mobility.date)
 
 jp_stringency = pd.read_csv('data/jp_gov_averaged.csv')
 jp_stringency.date = pd.to_datetime(jp_stringency.date)
-jp_mobility = pd.read_csv('data/jp_mobility.csv')
+jp_mobility = pd.read_csv('data/jp_mobility_average.csv')
+jp_mobility.date = pd.to_datetime(jp_mobility.date)
 
 uk_stringency = pd.read_csv('data/uk_gov_averaged.csv')
 uk_stringency.date = pd.to_datetime(uk_stringency.date)
-uk_mobility = pd.read_csv('data/uk_mobility.csv')
+uk_mobility = pd.read_csv('data/uk_mobility_average.csv')
+uk_mobility.date = pd.to_datetime(uk_mobility.date)
 
 # TODO: deaths/time, cases/time, mobility/time graphs
 
@@ -33,14 +36,28 @@ def make_time_graph(dataset, metric, ylabel, title):
     plt.title(title)
     plt.show()
 
-make_time_graph(us_stringency, 'deaths', 'Deaths', 'US Deaths vs. Time')
-make_time_graph(us_stringency, 'confirmed_cases', 'Confirmed Cases', 'US Confirmed Cases vs. Time')
+mobility_flavors = ['grocery_and_pharmacy', 'parks', 'transit_stations', 'workplaces', 'residential']
+mobility_labels = ['Mobility Changes (G&P)', 'Mobility Changes (Parks)', 
+                    'Mobility Changes (Transit)', 'Mobility Changes (Workplaces)',
+                    'Mobility Changes (Residential)']
 
-make_time_graph(uk_stringency, 'deaths', 'Deaths', 'UK Deaths vs. Time')
-make_time_graph(uk_stringency, 'confirmed_cases', 'Confirmed Cases', 'UK Confirmed Cases vs. Time')
+#make_time_graph(us_stringency, 'deaths', 'Deaths', 'US Deaths vs. Time')
+#make_time_graph(us_stringency, 'confirmed_cases', 'Confirmed Cases', 'US Confirmed Cases vs. Time')
+for i in range(len(mobility_flavors)):
+    make_time_graph(us_mobility, mobility_flavors[i], 'Average Change in Mobility (%)', 'US ' + mobility_labels[i])
 
-make_time_graph(jp_stringency, 'deaths', 'Deaths', 'JP Deaths vs. Time')
-make_time_graph(jp_stringency, 'confirmed_cases', 'Confirmed Cases', 'JP Confirmed Cases vs. Time')
+#make_time_graph(uk_stringency, 'deaths', 'Deaths', 'UK Deaths vs. Time')
+#make_time_graph(uk_stringency, 'confirmed_cases', 'Confirmed Cases', 'UK Confirmed Cases vs. Time')
+for i in range(len(mobility_flavors)):
+    make_time_graph(uk_mobility, mobility_flavors[i], 'Average Change in Mobility (%)', 'UK ' + mobility_labels[i])
+
+#make_time_graph(jp_stringency, 'deaths', 'Deaths', 'JP Deaths vs. Time')
+#make_time_graph(jp_stringency, 'confirmed_cases', 'Confirmed Cases', 'JP Confirmed Cases vs. Time')
+for i in range(len(mobility_flavors)):
+    make_time_graph(jp_mobility, mobility_flavors[i], 'Average Change in Mobility (%)', 'JP ' + mobility_labels[i])
+
+def make_mobility_graph():
+    pass
 
 '''
 # Import CSV data from file
