@@ -31,7 +31,8 @@ def make_time_graph(dataset, metric, ylabel, title):
     plt.title(title)
     plt.show()
 
-make_time_graph(us_stringency, 'deaths', 'Deaths (People)', 'US Deaths Over Time')
+make_time_graph(us_stringency, 'deaths', 'Deaths', 'US Deaths vs. Time')
+make_time_graph(us_stringency, 'confirmed_cases', 'Confirmed Cases', 'US Confirmed Cases vs. Time')
 
 '''
 # Import CSV data from file
