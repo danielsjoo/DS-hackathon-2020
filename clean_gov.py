@@ -29,3 +29,9 @@ uk_min = uk['date'].min()
 jp_min = jp['date'].min()
 start_date = max(us_min, uk_min, jp_min) #2020-01-01
 print(start_date)
+
+us_max = us_data['date'].max()
+uk_max = uk_data['date'].max()
+jp_max = jp_data['date'].max()
+end_date = min(us_max, uk_max, jp_max)
+print(end_date)
