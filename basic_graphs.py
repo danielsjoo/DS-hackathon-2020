@@ -2,9 +2,11 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
+import datetime as dt
 
 # Import CSV data from file
 us_stringency = pd.read_csv('data/us_gov_averaged.csv')
+us_stringency.date = pd.to_datetime(us_stringency.date)
 us_mobility = pd.read_csv('data/us_mobility.csv')
 
 jp_stringency = pd.read_csv('data/jp_gov_averaged.csv')
@@ -13,15 +15,18 @@ jp_mobility = pd.read_csv('data/jp_mobility.csv')
 uk_stringency = pd.read_csv('data/uk_gov_averaged.csv')
 uk_mobility = pd.read_csv('data/uk_mobility.csv')
 
-# TODO: Stringency/mobiity, stringency/time, mobility/time graphs
+# TODO: Stringency/mobility, stringency/time, mobility/time graphs
 
-plt.scatter(us_stringency['stringency_index'], us_mobility['grocery_and_pharmacy'])
+plt.figure(figsize=(8, 6))
+plt.scatter(us_stringency['date'], us_stringency['deaths'])
 
 model = LinearRegression()
-x = us_stringency['stringency_index']
-model.fit(x, us_mobility['grocery_and_pharmacy'])
+x = us_stringency['date'].map(dt.datetime.toordinal).to_numpy().reshape(-1, 1)
+model.fit(x, us_stringency['deaths'])
 y = model.predict(x)
 
+plt.plot(x, y)
+plt.show()
 
 
 '''
