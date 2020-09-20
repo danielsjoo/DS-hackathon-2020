@@ -19,8 +19,10 @@ for row in r:
         deaths += float(row[2])
         stringency_index += float(row[3])
     else:
-        w.writerow([date,round(confirmed_cases/i,2), round(deaths/i,2), round(stringency_index/i,2)])
+        print(confirmed_cases)
+        w.writerow([date, confirmed_cases/i,2, deaths/i,2, stringency_index/i,2])
         date = row[0]
+        confirmed_cases, deaths, stringency_index = 0,0,0
     
 
 us_gov.close()
