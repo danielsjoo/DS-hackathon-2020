@@ -17,6 +17,12 @@ uk_mobility = pd.read_csv('data/uk_mobility.csv')
 
 plt.scatter(us_stringency['stringency_index'], us_mobility['grocery_and_pharmacy'])
 
+model = LinearRegression()
+x = us_stringency['stringency_index']
+model.fit(x, us_mobility['grocery_and_pharmacy'])
+y = model.predict(x)
+
+
 
 '''
 # Import CSV data from file
