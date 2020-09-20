@@ -13,7 +13,7 @@ writer3 = csv.writer(w3)
 for row in r:
     if row[2] == "US":
         writer1.writerow([row[0],row[2],row[3], row[4], row[5], row[6], row[7]])
-    elif row[2] == "BG":
+    elif row[2] == "GB":
         writer2.writerow([row[0],row[2],row[3], row[4], row[5], row[6], row[7]])
     elif row[2] == "JP":
         writer3.writerow([row[0],row[2],row[3], row[4], row[5], row[6], row[7]])
