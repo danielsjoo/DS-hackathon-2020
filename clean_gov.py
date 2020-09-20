@@ -18,10 +18,12 @@ us = us.dropna(axis=0)
 uk = uk.dropna(axis=0)
 jp = jp.dropna(axis=0)
 
+"""
 #to csv
 us.to_csv('data/us_gov.csv')
 uk.to_csv('data/uk_gov.csv')
 jp.to_csv('data/jp_gov.csv')
+"""
 
 #start date check
 us_min = us['date'].min()
