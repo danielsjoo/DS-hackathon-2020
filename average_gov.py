@@ -1,7 +1,7 @@
 import csv
 
-us_gov = open("data/uk_gov.csv")
-output = open("data/uk_gov_averaged.csv", 'w')
+us_gov = open("data/us_gov.csv")
+output = open("data/us_gov_averaged.csv", 'w')
 
 r = csv.reader(us_gov)
 w = csv.writer(output)
@@ -13,6 +13,8 @@ stringency_index = 0
 date = "1/1/2020"
 
 for row in r:
+    if row[0] == "date":
+        continue
     if row[0] == date:
         i = i+1
         confirmed_cases += float(row[1])
