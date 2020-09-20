@@ -15,21 +15,23 @@ jp_mobility = pd.read_csv('data/jp_mobility.csv')
 uk_stringency = pd.read_csv('data/uk_gov_averaged.csv')
 uk_mobility = pd.read_csv('data/uk_mobility.csv')
 
-# TODO: Stringency/mobility, stringency/time, mobility/time graphs
+# TODO: deaths/time, cases/time, mobility/time graphs
 
-model = LinearRegression()
-x = us_stringency['date'].map(dt.datetime.toordinal).to_numpy().reshape(-1, 1)
-model.fit(x, us_stringency['deaths'])
-y = model.predict(x)
+def make_time_graph(dataset, metric, ylabel, title):
+    model = LinearRegression()
+    x = dataset['date'].map(dt.datetime.toordinal).to_numpy().reshape(-1, 1)
+    model.fit(x, dataset[metric])
+    y = model.predict(x)
 
-plt.figure(figsize=(8, 6))
-plt.scatter(us_stringency['date'], us_stringency['deaths'], s=8)
-plt.plot(x, y, color='red')
-plt.xlabel('Date (YYYY-MM)')
-plt.ylabel('Deaths (People)')
-plt.title('US Deaths Over Time')
-plt.show()
+    plt.figure(figsize=(8, 6))
+    plt.scatter(dataset['date'], dataset[metric], s=8)
+    plt.plot(x, y, color='red')
+    plt.xlabel('Date (YYYY-MM)')
+    plt.ylabel(ylabel)
+    plt.title(title)
+    plt.show()
 
+make_time_graph(us_stringency, 'deaths', 'Deaths (People)', 'US Deaths Over Time')
 
 '''
 # Import CSV data from file
